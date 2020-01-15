@@ -3,52 +3,34 @@ import subprocess
 
 import psutil
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt, pyqtSignal, QObject
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QIcon, QMovie
 
 
 # background process kill(keyConverter and pero_ui)
 def kill_process():
     for proc in psutil.process_iter():
-        if any(procstr in proc.name() for procstr in ['keyConverterPERO.exe', 'keyConverterPERO.exe', 'keyConverterPERO.exe', 'keyConverterPERO.exe']):
+        if any(procstr in proc.name() for procstr in ['keyConverterPERO.exe', 'keyConverterPERO.exe', 'python']):
             print(f'Killing {proc.name()}')
             proc.kill()
 
 
 subprocess_list = []
 
-class Communicate(QObject):
 
-    closeApp = pyqtSignal()
-
-
-class Ui_Form(QtWidgets.QWidget):
-
-    def __init__(self):
-        super().__init__()
-        Form = QtWidgets.QWidget()
-        self.setupUi(Form)
+class Ui_Form(object):
 
     def setupUi(self, Form):
-        # Form.setObjectName("Form")
-        # Form.setEnabled(True)
-        # Form.resize(1330, 810)
-        # Form.setFixedSize(1330, 810)
-        # Form.setFocusPolicy(QtCore.Qt.NoFocus)
-        # Form.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        # Form.setWindowOpacity(3.0)
-        # Form.setStyleSheet("background-color: rgb(255, 255, 255)")
+        Form.setObjectName("Form")
+        Form.setEnabled(True)
+        Form.resize(1330, 810)
+        Form.setFixedSize(1330, 810)
+        Form.setFocusPolicy(QtCore.Qt.NoFocus)
+        Form.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        Form.setWindowOpacity(3.0)
+        Form.setStyleSheet("background-color: rgb(255, 255, 255)")
 
-        self.setObjectName("Form")
-        self.setEnabled(True)
-        self.resize(1330, 810)
-        self.setFixedSize(1330, 810)
-        self.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.setWindowOpacity(3.0)
-        self.setStyleSheet("background-color: rgb(255, 255, 255)")
-
-        self.gridLayoutWidget = QtWidgets.QWidget(self)
+        self.gridLayoutWidget = QtWidgets.QWidget(Form)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 1311, 791))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
@@ -345,23 +327,23 @@ class Ui_Form(QtWidgets.QWidget):
         self.reset_btn.pressed.connect(self.press_reset_btn)
         self.reset_btn.released.connect(self.release_reset_btn)
 
-        # self.quit_btn = QtWidgets.QPushButton()
-        # font = QtGui.QFont()
-        # font.setFamily("AppleSDGothicNeoM00")
-        # font.setPointSize(9)
-        # font.setBold(True)
-        # font.setWeight(75)
-        # self.quit_btn.setFont(font)
-        # self.quit_btn.setObjectName("quit_btn")
-        # self.quit_btn.setFixedSize(90, 27)
-        # self.quit_btn.setStyleSheet(
-        #     "background: #CBC7B8;  border: 2px solid #A8A69E; border-radius: 10px; text-align: center;")
-        #
-        # self.gridLayout_331.addWidget(self.quit_btn, 1, 2, 1, 1)
-        # # self.gridLayout_174.addLayout(self.gridLayout_179, 2, 2, 1, 1)
-        # self.quit_btn.setText("Quit")
-        # self.quit_btn.pressed.connect(self.press_quit_btn)
-        # self.quit_btn.released.connect(self.release_quit_btn)
+        self.quit_btn = QtWidgets.QPushButton()
+        font = QtGui.QFont()
+        font.setFamily("AppleSDGothicNeoM00")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.quit_btn.setFont(font)
+        self.quit_btn.setObjectName("quit_btn")
+        self.quit_btn.setFixedSize(90, 27)
+        self.quit_btn.setStyleSheet(
+            "background: #CBC7B8;  border: 2px solid #A8A69E; border-radius: 10px; text-align: center;")
+
+        self.gridLayout_331.addWidget(self.quit_btn, 1, 2, 1, 1)
+        # self.gridLayout_174.addLayout(self.gridLayout_179, 2, 2, 1, 1)
+        self.quit_btn.setText("Quit")
+        self.quit_btn.pressed.connect(self.press_quit_btn)
+        self.quit_btn.released.connect(self.release_quit_btn)
 
         self.gridLayout_270 = QtWidgets.QGridLayout()
         self.gridLayout_270.setObjectName("gridLayout_270")
@@ -975,10 +957,6 @@ class Ui_Form(QtWidgets.QWidget):
         self.gridLayout_141 = QtWidgets.QGridLayout()
         self.gridLayout_141.setObjectName("gridLayout_141")
         self.active_app = QtWidgets.QLabel(self.gridGroupBox_80)
-        font = QtGui.QFont()
-        font.setFamily("AppleSDGothicNeoM00")
-        font.setPointSize(11)
-        self.active_app.setFont(font)
         self.active_app.setObjectName("active_app")
         self.active_app.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
         self.gridLayout_141.addWidget(self.active_app, 0, 0, 1, 1)
@@ -1185,20 +1163,18 @@ class Ui_Form(QtWidgets.QWidget):
         self.gridLayout_3.addLayout(self.gridLayout_43, 4, 0, 2, 6)
         self.gridLayout.addWidget(self.groupBox, 3, 0, 23, 6)
 
-        self.retranslateUi(self)
-        # self.c = Communicate()
-        # self.c.closeApp.connect(Form.close)
-        # QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
 
     #####################################################################################################
 
     def retranslateUi(self, Form):
 
-        subprocess_list.append(subprocess.Popen('keyConverterPERO.exe', shell=True))
+        # subprocess_list.append(subprocess.Popen('keyConverterPERO.exe', shell=True))
 
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("Palmcat", "Palmcat"))
-        self.setWindowIcon(QIcon('palmcat_title.png'))
+        Form.setWindowTitle(_translate("Palmcat", "Palmcat"))
+        Form.setWindowIcon(QIcon('palmcat_title.png'))
 
         pixmap_ges_func = QPixmap("./mainFrame/gesture_function.png")
         pixmap_ges_func = pixmap_ges_func.scaled(200, 19)
@@ -1423,6 +1399,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.excel.setPixmap(QPixmap(excel_tag))
         self.excel.mousePressEvent = self.select_excel
         self.excel_current = "click_no"
+        self.excel.setDisabled(True)
 
         ppt_img = QPixmap("./mainFrame/ppt.png")
         ppt_tag = ppt_img.scaled(141, 37)
@@ -1430,6 +1407,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.ppt.setPixmap(QPixmap(ppt_tag))
         self.ppt.mousePressEvent = self.select_ppt
         self.ppt_current = "click_no"
+        self.ppt.setDisabled(True)
 
         self.active_ppt = QPixmap("./mainFrame/active_ppt.png")
         self.active_ppt = self.active_ppt.scaled(127, 24)
@@ -1440,7 +1418,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.active_windows = QPixmap("./mainFrame/active_windows.png")
         self.active_windows = self.active_windows.scaled(174, 26)
 
-        self.active_app.setText(_translate("Form", "◀◀ Please select Application"))
+        self.active_app.setText(_translate("Form", "-----"))
 
         self.notice2.setText(_translate("Form", "비 활성화된 적용된 아이콘들은 추후 제공될 예정입니다."))
         self.notice3.setText(_translate("Form", "2020년 봄 업데이트 예정"))
@@ -1472,7 +1450,6 @@ class Ui_Form(QtWidgets.QWidget):
         # self.mac_os.setStyleSheet("background-color: white")
 
         if self.ppt_current == "click_no":
-
             self.ppt.setStyleSheet("background-color: '#fe9801'")
             self.ppt_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_ppt))
@@ -1480,7 +1457,6 @@ class Ui_Form(QtWidgets.QWidget):
             self.ppt.setStyleSheet("background-color: white")
             self.ppt_current = "click_no"
             self.active_app.clear()
-            self.active_app.setText("◀◀ Please select Application")
 
     def select_excel(self, event):
         self.ppt_current = "click_no"
@@ -1491,7 +1467,6 @@ class Ui_Form(QtWidgets.QWidget):
         # self.mac_os.setStyleSheet("background-color: white")
 
         if self.excel_current == "click_no":
-
             self.excel.setStyleSheet("background-color: '#fe9801'")
             self.excel_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_excel))
@@ -1499,7 +1474,6 @@ class Ui_Form(QtWidgets.QWidget):
             self.excel.setStyleSheet("background-color: white")
             self.excel_current = "click_no"
             self.active_app.clear()
-            self.active_app.setText("◀◀ Please select Application")
 
     def select_mac_os(self, event):
         self.excel_current = "click_no"
@@ -1517,7 +1491,6 @@ class Ui_Form(QtWidgets.QWidget):
             self.mac_os.setStyleSheet("background-color: white")
             self.mac_os_current = "click_no"
             self.active_app.clear()
-            self.active_app.setText("◀◀ Please select Application")
 
     def select_windows(self, event):
         self.excel_current = "click_no"
@@ -1541,7 +1514,6 @@ class Ui_Form(QtWidgets.QWidget):
             self.windows.setStyleSheet("background-color: white")
             self.windows_current = "click_no"
             self.active_app.clear()
-            self.active_app.setText("◀◀ Please select Application")
 
             self.touch_des3.clear()
             self.touch_des3.addItem("---명령선택---")
@@ -1995,6 +1967,177 @@ class Ui_Form(QtWidgets.QWidget):
         self.video.setMovie(movie)
         movie.start()
 
+    # def select_combobox1(self):
+    #     for i in range(4):
+    #         self.touch_des1.model().item(i + 1).setEnabled(True)
+    #         self.touch_des2.model().item(i + 1).setEnabled(True)
+    #         self.touch_des3.model().item(i + 1).setEnabled(True)
+    #
+    #         td_index1 = self.touch_des1.currentIndex()
+    #         td_index2 = self.touch_des2.currentIndex()
+    #         td_index3 = self.touch_des3.currentIndex()
+    #         if td_index1 == 4 and td_index2 != 4 and td_index3 != 4:
+    #             self.touch_des1.model().item(td_index2).setEnabled(False)
+    #             self.touch_des1.model().item(td_index3).setEnabled(False)
+    #             self.touch_des2.model().item(td_index3).setEnabled(False)
+    #             self.touch_des3.model().item(td_index2).setEnabled(False)
+    #         elif td_index2 == 4 and td_index1 != 4 and td_index3 != 4:
+    #             self.touch_des1.model().item(td_index3).setEnabled(False)
+    #             self.touch_des2.model().item(td_index1).setEnabled(False)
+    #             self.touch_des2.model().item(td_index3).setEnabled(False)
+    #             self.touch_des3.model().item(td_index1).setEnabled(False)
+    #         elif td_index3 == 4 and td_index1 != 4 and td_index2 != 4:
+    #             self.touch_des1.model().item(td_index2).setEnabled(False)
+    #             self.touch_des2.model().item(td_index1).setEnabled(False)
+    #             self.touch_des3.model().item(td_index1).setEnabled(False)
+    #             self.touch_des3.model().item(td_index2).setEnabled(False)
+    #         elif td_index1 == 4 and td_index2 == 4 and td_index3 != 4:
+    #             self.touch_des1.model().item(td_index3).setEnabled(False)
+    #             self.touch_des2.model().item(td_index3).setEnabled(False)
+    #         elif td_index1 == 4 and td_index3 == 4 and td_index2 != 4:
+    #             self.touch_des1.model().item(td_index2).setEnabled(False)
+    #             self.touch_des3.model().item(td_index2).setEnabled(False)
+    #         elif td_index2 == 4 and td_index3 == 4 and td_index1 != 4:
+    #             self.touch_des2.model().item(td_index1).setEnabled(False)
+    #             self.touch_des3.model().item(td_index1).setEnabled(False)
+    #         else:
+    #             self.touch_des1.model().item(td_index2).setEnabled(False)
+    #             self.touch_des1.model().item(td_index3).setEnabled(False)
+    #             self.touch_des2.model().item(td_index1).setEnabled(False)
+    #             self.touch_des2.model().item(td_index3).setEnabled(False)
+    #             self.touch_des3.model().item(td_index1).setEnabled(False)
+    #             self.touch_des3.model().item(td_index2).setEnabled(False)
+    #
+    # def select_combobox2(self):
+    #     for i in range(4):
+    #         self.touch_des1.model().item(i + 1).setEnabled(True)
+    #         self.touch_des2.model().item(i + 1).setEnabled(True)
+    #         self.touch_des3.model().item(i + 1).setEnabled(True)
+    #
+    #     td_index1 = self.touch_des1.currentIndex()
+    #     td_index2 = self.touch_des2.currentIndex()
+    #     td_index3 = self.touch_des3.currentIndex()
+    #     if td_index1 == 4 and td_index2 != 4 and td_index3 != 4:
+    #         self.touch_des1.model().item(td_index2).setEnabled(False)
+    #         self.touch_des1.model().item(td_index3).setEnabled(False)
+    #         self.touch_des2.model().item(td_index3).setEnabled(False)
+    #         self.touch_des3.model().item(td_index2).setEnabled(False)
+    #     elif td_index2 == 4 and td_index1 != 4 and td_index3 != 4:
+    #         self.touch_des1.model().item(td_index3).setEnabled(False)
+    #         self.touch_des2.model().item(td_index1).setEnabled(False)
+    #         self.touch_des2.model().item(td_index3).setEnabled(False)
+    #         self.touch_des3.model().item(td_index1).setEnabled(False)
+    #     elif td_index3 == 4 and td_index1 != 4 and td_index2 != 4:
+    #         self.touch_des1.model().item(td_index2).setEnabled(False)
+    #         self.touch_des2.model().item(td_index1).setEnabled(False)
+    #         self.touch_des3.model().item(td_index1).setEnabled(False)
+    #         self.touch_des3.model().item(td_index2).setEnabled(False)
+    #     elif td_index1 == 4 and td_index2 == 4 and td_index3 != 4:
+    #         self.touch_des1.model().item(td_index3).setEnabled(False)
+    #         self.touch_des2.model().item(td_index3).setEnabled(False)
+    #     elif td_index1 == 4 and td_index3 == 4 and td_index2 != 4:
+    #         self.touch_des1.model().item(td_index2).setEnabled(False)
+    #         self.touch_des3.model().item(td_index2).setEnabled(False)
+    #     elif td_index2 == 4 and td_index3 == 4 and td_index1 != 4:
+    #         self.touch_des2.model().item(td_index1).setEnabled(False)
+    #         self.touch_des3.model().item(td_index1).setEnabled(False)
+    #     else:
+    #         self.touch_des1.model().item(td_index2).setEnabled(False)
+    #         self.touch_des1.model().item(td_index3).setEnabled(False)
+    #         self.touch_des2.model().item(td_index1).setEnabled(False)
+    #         self.touch_des2.model().item(td_index3).setEnabled(False)
+    #         self.touch_des3.model().item(td_index1).setEnabled(False)
+    #         self.touch_des3.model().item(td_index2).setEnabled(False)
+    #
+    # def select_combobox3(self):
+    #     for i in range(4):
+    #         self.touch_des1.model().item(i + 1).setEnabled(True)
+    #         self.touch_des2.model().item(i + 1).setEnabled(True)
+    #         self.touch_des3.model().item(i + 1).setEnabled(True)
+    #
+    #     td_index1 = self.touch_des1.currentIndex()
+    #     td_index2 = self.touch_des2.currentIndex()
+    #     td_index3 = self.touch_des3.currentIndex()
+    #     if td_index1 == 4 and td_index2 != 4 and td_index3 != 4:
+    #         self.touch_des1.model().item(td_index2).setEnabled(False)
+    #         self.touch_des1.model().item(td_index3).setEnabled(False)
+    #         self.touch_des2.model().item(td_index3).setEnabled(False)
+    #         self.touch_des3.model().item(td_index2).setEnabled(False)
+    #     elif td_index2 == 4 and td_index1 != 4 and td_index3 != 4:
+    #         self.touch_des1.model().item(td_index3).setEnabled(False)
+    #         self.touch_des2.model().item(td_index1).setEnabled(False)
+    #         self.touch_des2.model().item(td_index3).setEnabled(False)
+    #         self.touch_des3.model().item(td_index1).setEnabled(False)
+    #     elif td_index3 == 4 and td_index1 != 4 and td_index2 != 4:
+    #         self.touch_des1.model().item(td_index2).setEnabled(False)
+    #         self.touch_des2.model().item(td_index1).setEnabled(False)
+    #         self.touch_des3.model().item(td_index1).setEnabled(False)
+    #         self.touch_des3.model().item(td_index2).setEnabled(False)
+    #     elif td_index1 == 4 and td_index2 == 4 and td_index3 != 4:
+    #         self.touch_des1.model().item(td_index3).setEnabled(False)
+    #         self.touch_des2.model().item(td_index3).setEnabled(False)
+    #     elif td_index1 == 4 and td_index3 == 4 and td_index2 != 4:
+    #         self.touch_des1.model().item(td_index2).setEnabled(False)
+    #         self.touch_des3.model().item(td_index2).setEnabled(False)
+    #     elif td_index2 == 4 and td_index3 == 4 and td_index1 != 4:
+    #         self.touch_des2.model().item(td_index1).setEnabled(False)
+    #         self.touch_des3.model().item(td_index1).setEnabled(False)
+    #     else:
+    #         self.touch_des1.model().item(td_index2).setEnabled(False)
+    #         self.touch_des1.model().item(td_index3).setEnabled(False)
+    #         self.touch_des2.model().item(td_index1).setEnabled(False)
+    #         self.touch_des2.model().item(td_index3).setEnabled(False)
+    #         self.touch_des3.model().item(td_index1).setEnabled(False)
+    #         self.touch_des3.model().item(td_index2).setEnabled(False)
+
+    # def select_combobox3(self):
+    #     touch_des1_index = self.touch_des3.findText(self.touch_des3.currentText())
+    #     touch_des2_index = self.touch_des3.findText(self.touch_des3.currentText())
+    #     self.touch_des1.model().item(touch_des1_index).setEnabled(False)
+    #     self.touch_des2.model().item(touch_des2_index).setEnabled(False)
+
+    # def press_submit_btn(self):
+    #     self.submit_btn.setStyleSheet("background: #ABA79B;  border: 3px solid #A8A69E;")
+    #
+    # def release_submit_btn(self):
+    #     if self.touch_des1.currentIndex() == 0 or self.touch_des2.currentIndex() == 0 or self.touch_des3.currentIndex() == 0:
+    #         reply = QtWidgets.QMessageBox.question(Form, 'Please check', '제스처를 선택하세요!', QtWidgets.QMessageBox.Ok)
+    #         self.submit_btn.setStyleSheet("background: #CBC7B8;  border: 2px solid #A8A69E;")
+    #     else:
+    #         reply = QtWidgets.QMessageBox.question(Form, 'Please check', '사용할 준비가 되었습니까?', QtWidgets.QMessageBox.Ok)
+    #
+    #         self.submit_btn.setStyleSheet("background: #CBC7B8;  border: 2px solid #A8A69E;")
+    #
+    #         self.touch_des1.setDisabled(True)
+    #         self.touch_des2.setDisabled(True)
+    #         self.touch_des3.setDisabled(True)
+    #
+    #         self.submit_btn.setStyleSheet("background: #CBC7B8;  border: 2px solid #A8A69E;")
+    #
+    #         i = 0
+    #         while True:
+    #             # print(list(self.gesture_dic.items())[i][1])
+    #             # i = i + 1
+    #             if list(self.gesture_dic.items())[i][1] == "click_yes":
+    #                 print(list(self.gesture_dic.items())[i][0].objectName())
+    #                 break
+    #             i = i + 1
+
+    # def press_end_btn(self):
+    #     self.end_btn.setStyleSheet("background: #ABA79B;  border: 3px solid #A8A69E;")
+    #
+    # def release_end_btn(self):
+    #     self.end_btn.setStyleSheet("background: #CBC7B8;  border: 2px solid #A8A69E;")
+    #
+    #
+    #     self.touch_des1.setEnabled(True)
+    #     self.touch_des2.setEnabled(True)
+    #     self.touch_des3.setEnabled(True)
+    #
+    #     self.touch_des1.setCurrentIndex(0)
+    #     self.touch_des2.setCurrentIndex(0)
+    #     self.touch_des3.setCurrentIndex(0)
+
     def select_combobox3(self):
         # print(self.touch_des3.currentText())
         pass
@@ -2008,7 +2151,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.touch_des3.setEnabled(True)
 
         if self.touch_des3.currentIndex() == 0:
-            reply = QtWidgets.QMessageBox.question(self, 'Please check', '제스처와 명령을 선택하세요', QtWidgets.QMessageBox.Ok)
+            reply = QtWidgets.QMessageBox.question(Form, 'Please check', '제스처와 명령을 선택하세요', QtWidgets.QMessageBox.Ok)
             self.save_btn.setStyleSheet("background: #CBC7B8;  border: 2px solid #A8A69E;")
         else:
             for i in range(0, 16):
@@ -2044,7 +2187,7 @@ class Ui_Form(QtWidgets.QWidget):
             elif gesture_name == "linear4":
                 gesture_type = "↓"
 
-            reply = QtWidgets.QMessageBox.question(self,
+            reply = QtWidgets.QMessageBox.question(Form,
                                                    'Please check', gesture_type + ' : ' + command + "\n(으)로 설정되었습니다.",
                                                    QtWidgets.QMessageBox.Ok)
 
@@ -2058,7 +2201,7 @@ class Ui_Form(QtWidgets.QWidget):
 
         self.touch_des3.setEnabled(True)
 
-        reply = QtWidgets.QMessageBox.question(self, 'Reset', "초기화되었습니다.", QtWidgets.QMessageBox.Ok)
+        reply = QtWidgets.QMessageBox.question(Form, 'Reset', "초기화되었습니다.", QtWidgets.QMessageBox.Ok)
 
         self.touch_des1.setCurrentIndex(0)
         self.touch_des2.setCurrentIndex(0)
@@ -2084,7 +2227,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.quit_btn.setStyleSheet(
             "background: #CBC7B8;  border: 2px solid #A8A69E; border-radius: 10px; text-align: center;")
 
-        reply = QtWidgets.QMessageBox.question(self, 'Quit', "프로그램을 종료하시겠습니까?",
+        reply = QtWidgets.QMessageBox.question(Form, 'Quit', "프로그램을 종료하시겠습니까?",
                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
                                                QtWidgets.QMessageBox.No)
 
@@ -2099,29 +2242,24 @@ class Ui_Form(QtWidgets.QWidget):
         else:
             pass
 
-    def closeEvent(self, event):
+    def closeEvent(Form, event):
         print("end")
-        reply = QtWidgets.QMessageBox.question(self, 'Quit', "프로그램을 종료하시겠습니까?",
-                                               QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-                                               QtWidgets.QMessageBox.No)
-
-        if reply == QtWidgets.QMessageBox.Yes:
-
-            f = open("./setting/pero_setting_data/pero_state.txt", "w")
-            f.write("default")
-            f.close()
-
-            kill_process()
-
-            event.accept()
-        else:
-            event.ignore()
+    #     reply = QtWidgets.QMessageBox.question(
+    #         self, "Message",
+    #         "Are you sure you want to quit? Any unsaved work will be lost.",
+    #         QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Close | QtWidgets.QMessageBox.Cancel,
+    #         QtWidgets.QMessageBox.Save)
+    #
+    #     if reply == QtWidgets.QMessageBox.Close:
+    #         event.accept()
+    #     else:
+    #         event.ignore()
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    # Form = QtWidgets.QWidget()
+    Form = QtWidgets.QWidget()
     ui = Ui_Form()
-    # ui.setupUi(Form)
-    ui.show()
+    ui.setupUi(Form)
+    Form.show()
     sys.exit(app.exec_())
