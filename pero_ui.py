@@ -1194,7 +1194,7 @@ class Ui_Form(QtWidgets.QWidget):
 
     def retranslateUi(self, Form):
 
-        subprocess_list.append(subprocess.Popen('keyConverterPERO.exe', shell=True))
+        # subprocess_list.append(subprocess.Popen('keyConverterPERO.exe', shell=True))
 
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("Palmcat", "Palmcat"))
@@ -1471,16 +1471,35 @@ class Ui_Form(QtWidgets.QWidget):
         # self.mac_os_current = "click_no"
         # self.mac_os.setStyleSheet("background-color: white")
 
+        i = 0
+        while True:
+            list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
+            self.gesture_dic[list(self.gesture_dic.items())[i][0]] = "click_no"
+            i = i + 1
+            if i == 16: break
+
         if self.ppt_current == "click_no":
 
             self.ppt.setStyleSheet("background-color: '#fe9801'")
             self.ppt_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_ppt))
+
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
+            f.write("ppt")
+            f.close()
         elif self.ppt_current == "click_yes":
             self.ppt.setStyleSheet("background-color: white")
             self.ppt_current = "click_no"
             self.active_app.clear()
             self.active_app.setText("◀◀ Please select Application")
+
+            self.touch_des3.clear()
+            self.touch_des3.addItem("---명령선택---")
+            self.touch_des3.model().item(0).setEnabled(False)
+
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
+            f.write("default")
+            f.close()
 
     def select_excel(self, event):
         self.ppt_current = "click_no"
@@ -1490,16 +1509,35 @@ class Ui_Form(QtWidgets.QWidget):
         # self.mac_os_current = "click_no"
         # self.mac_os.setStyleSheet("background-color: white")
 
+        i = 0
+        while True:
+            list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
+            self.gesture_dic[list(self.gesture_dic.items())[i][0]] = "click_no"
+            i = i + 1
+            if i == 16: break
+
         if self.excel_current == "click_no":
 
             self.excel.setStyleSheet("background-color: '#fe9801'")
             self.excel_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_excel))
+
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
+            f.write("excel")
+            f.close()
         elif self.excel_current == "click_yes":
             self.excel.setStyleSheet("background-color: white")
             self.excel_current = "click_no"
             self.active_app.clear()
             self.active_app.setText("◀◀ Please select Application")
+
+            self.touch_des3.clear()
+            self.touch_des3.addItem("---명령선택---")
+            self.touch_des3.model().item(0).setEnabled(False)
+
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
+            f.write("default")
+            f.close()
 
     def select_mac_os(self, event):
         self.excel_current = "click_no"
@@ -1509,15 +1547,34 @@ class Ui_Form(QtWidgets.QWidget):
         self.ppt_current = "click_no"
         self.ppt.setStyleSheet("background-color: white")
 
+        i = 0
+        while True:
+            list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
+            self.gesture_dic[list(self.gesture_dic.items())[i][0]] = "click_no"
+            i = i + 1
+            if i == 16: break
+
         if self.mac_os_current == "click_no":
             self.mac_os.setStyleSheet("background-color: '#fe9801'")
             self.mac_os_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_mac_os))
+
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
+            f.write("mac_os")
+            f.close()
         elif self.mac_os_current == "click_yes":
             self.mac_os.setStyleSheet("background-color: white")
             self.mac_os_current = "click_no"
             self.active_app.clear()
             self.active_app.setText("◀◀ Please select Application")
+
+            self.touch_des3.clear()
+            self.touch_des3.addItem("---명령선택---")
+            self.touch_des3.model().item(0).setEnabled(False)
+
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
+            f.write("default")
+            f.close()
 
     def select_windows(self, event):
         self.excel_current = "click_no"
@@ -1526,6 +1583,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.ppt.setStyleSheet("background-color: white")
         # self.mac_os_current = "click_no"
         # self.mac_os.setStyleSheet("background-color: white")
+
         i = 0
         while True:
             list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
@@ -1537,6 +1595,10 @@ class Ui_Form(QtWidgets.QWidget):
             self.windows.setStyleSheet("background-color: '#fe9801'")
             self.windows_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_windows))
+
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
+            f.write("windows")
+            f.close()
         elif self.windows_current == "click_yes":
             self.windows.setStyleSheet("background-color: white")
             self.windows_current = "click_no"
@@ -1546,6 +1608,10 @@ class Ui_Form(QtWidgets.QWidget):
             self.touch_des3.clear()
             self.touch_des3.addItem("---명령선택---")
             self.touch_des3.model().item(0).setEnabled(False)
+
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
+            f.write("default")
+            f.close()
 
     def select_linear1(self, event):
         i = 0
@@ -1620,17 +1686,54 @@ class Ui_Form(QtWidgets.QWidget):
             if i == 16:
                 break
 
-        if self.windows_current == "click_yes" and list(self.gesture_dic.items())[2][1] == "click_yes":
-            self.touch_des3.clear()
-            self.touch_des3.addItem("---명령선택---")
-            self.touch_des3.addItem("시작화면 열기(Default)")
-            self.touch_des3.addItem("윈도우 작업 보기")
-            self.touch_des3.addItem("윈도우 검색 창 실행")
-            self.touch_des3.model().item(0).setEnabled(False)
-        else:
-            self.touch_des3.clear()
-            self.touch_des3.addItem("---명령선택---")
-            self.touch_des3.model().item(0).setEnabled(False)
+        f = open("./setting/pero_setting_data/current_app.txt", "r")
+        current_app = f.read()
+        f.close()
+        option = {}
+        print(current_app)
+
+        if current_app == "windows":
+            f = open("./setting/pero_setting_data/option_windows.txt", "rt", encoding="UTF-8")
+            current_option = f.read()
+            f.close()
+
+            current_option = current_option.split("\n")
+            for i in range(len(current_option)):
+                option.update({current_option[i].split(":")[0]: current_option[i].split(":")[1]})
+        elif current_app == "excel":
+            f = open("./setting/pero_setting_data/option_excel.txt", "rt", encoding="UTF-8")
+            current_option = f.read()
+            f.close()
+
+            current_option = current_option.split("\n")
+            for i in range(len(current_option)):
+                option.update({current_option[i].split(":")[0]: current_option[i].split(":")[1]})
+        elif current_app == "ppt":
+            f = open("./setting/pero_setting_data/option_ppt.txt", "rt", encoding="UTF-8")
+            current_option = f.read()
+            f.close()
+
+            current_option = current_option.split("\n")
+            for i in range(len(current_option)):
+                option.update({current_option[i].split(":")[0]: current_option[i].split(":")[1]})
+
+        self.touch_des3.clear()
+        self.touch_des3.addItem("---명령선택---")
+        self.touch_des3.model().item(0).setEnabled(False)
+
+        if list(self.gesture_dic.items())[2][1] == "click_yes":
+            if current_app == "windows":
+                set_combo = option['linear3'].split("/")
+                for i in range(len(set_combo)):
+                    self.touch_des3.addItem(set_combo[i])
+            elif current_app == "excel":
+                set_combo = option['linear3'].split("/")
+                for i in range(len(set_combo)):
+                    self.touch_des3.addItem(set_combo[i])
+            elif current_app == "ppt":
+                set_combo = option['linear3'].split("/")
+                for i in range(len(set_combo)):
+                    self.touch_des3.addItem(set_combo[i])
 
         movie = QMovie("./setting/move_video/linear3.gif")
         self.video.setMovie(movie)
@@ -1655,17 +1758,54 @@ class Ui_Form(QtWidgets.QWidget):
             if i == 16:
                 break
 
-        if self.windows_current == "click_yes" and list(self.gesture_dic.items())[3][1] == "click_yes":
-            self.touch_des3.clear()
-            self.touch_des3.addItem("---명령선택---")
-            self.touch_des3.addItem("모든창 최소화(Default)")
-            self.touch_des3.addItem("돋보기 실행")
-            self.touch_des3.addItem("탐색기 실행")
-            self.touch_des3.model().item(0).setEnabled(False)
-        else:
-            self.touch_des3.clear()
-            self.touch_des3.addItem("---명령선택---")
-            self.touch_des3.model().item(0).setEnabled(False)
+        f = open("./setting/pero_setting_data/current_app.txt", "r")
+        current_app = f.read()
+        f.close()
+        option = {}
+        print(current_app)
+
+        if current_app == "windows":
+            f = open("./setting/pero_setting_data/option_windows.txt", "rt", encoding="UTF-8")
+            current_option = f.read()
+            f.close()
+
+            current_option = current_option.split("\n")
+            for i in range(len(current_option)):
+                option.update({current_option[i].split(":")[0]: current_option[i].split(":")[1]})
+        elif current_app == "excel":
+            f = open("./setting/pero_setting_data/option_excel.txt", "rt", encoding="UTF-8")
+            current_option = f.read()
+            f.close()
+
+            current_option = current_option.split("\n")
+            for i in range(len(current_option)):
+                option.update({current_option[i].split(":")[0]: current_option[i].split(":")[1]})
+        elif current_app == "ppt":
+            f = open("./setting/pero_setting_data/option_ppt.txt", "rt", encoding="UTF-8")
+            current_option = f.read()
+            f.close()
+
+            current_option = current_option.split("\n")
+            for i in range(len(current_option)):
+                option.update({current_option[i].split(":")[0]: current_option[i].split(":")[1]})
+
+        self.touch_des3.clear()
+        self.touch_des3.addItem("---명령선택---")
+        self.touch_des3.model().item(0).setEnabled(False)
+
+        if list(self.gesture_dic.items())[3][1] == "click_yes":
+            if current_app == "windows":
+                set_combo = option['linear4'].split("/")
+                for i in range(len(set_combo)):
+                    self.touch_des3.addItem(set_combo[i])
+            elif current_app == "excel":
+                set_combo = option['linear4'].split("/")
+                for i in range(len(set_combo)):
+                    self.touch_des3.addItem(set_combo[i])
+            elif current_app == "ppt":
+                set_combo = option['linear4'].split("/")
+                for i in range(len(set_combo)):
+                    self.touch_des3.addItem(set_combo[i])
 
         movie = QMovie("./setting/move_video/linear4.gif")
         self.video.setMovie(movie)
@@ -1999,6 +2139,10 @@ class Ui_Form(QtWidgets.QWidget):
         # print(self.touch_des3.currentText())
         pass
 
+    #####################################################################
+    ## current database
+    current_db = {}
+
     def press_save_btn(self):
         self.save_btn.setStyleSheet("background: #ABA79B;  border: 3px solid #A8A69E;")
 
@@ -2016,15 +2160,28 @@ class Ui_Form(QtWidgets.QWidget):
                     gesture_name = list(self.gesture_dic.items())[i][0].objectName()
                     command = self.touch_des3.currentText()
 
-                    f = open("./setting/pero_setting_data/gesture" + str(i + 1) + ".txt", "w")
-                    f.write('%s:%s' % (gesture_name, command))
+                    ## 처음 application 선택하면 값을 저장
+                    ## 다시 application을 선택하는 경우 기존의 모든 제스처 값을 삭제하고 다시 처음부터 누적 저장시켜야한다.
+
+                    f = open("./setting/pero_setting_data/current_app.txt", "r")
+                    current_app = f.read()
                     f.close()
 
-                    f = open("./setting/pero_setting_data/pero_state.txt", "w")
-                    f.write("user")
+                    f = open("./setting/pero_setting_data/apply_app.txt", "w")
+                    f.write(current_app)
                     f.close()
-                    # current_process.kill()
-                    # current_process = subprocess.Popen('python keyConverterPERO.py', shell=True))
+
+                    f = open("./setting/pero_setting_data/apply_gesture.txt", "a")
+                    f.write(gesture_name + "\n")
+                    f.close()
+
+                    self.current_db.update({"application": current_app})
+                    self.current_db.update({gesture_name: command})
+                    print(self.current_db)
+
+                    f = open("./setting/pero_setting_data/" + gesture_name + ".txt", "w")
+                    f.write('%s:%s' % (gesture_name, command))
+                    f.close()
 
                     list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
                     self.gesture_dic[list(self.gesture_dic.items())[i][0]] = "click_no"
@@ -2072,42 +2229,21 @@ class Ui_Form(QtWidgets.QWidget):
             list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
             self.gesture_dic[list(self.gesture_dic.items())[i][0]] = "click_no"
 
-        f = open("./setting/pero_setting_data/pero_state.txt", "w")
+        f = open("./setting/pero_setting_data/apply_app.txt", "w")
         f.write("default")
         f.close()
 
-    def press_quit_btn(self):
-        self.quit_btn.setStyleSheet(
-            "background: #ABA79B;  border: 3px solid #A8A69E; border-radius: 10px; text-align: center;")
-
-    def release_quit_btn(self):
-        self.quit_btn.setStyleSheet(
-            "background: #CBC7B8;  border: 2px solid #A8A69E; border-radius: 10px; text-align: center;")
-
-        reply = QtWidgets.QMessageBox.question(self, 'Quit', "프로그램을 종료하시겠습니까?",
-                                               QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-                                               QtWidgets.QMessageBox.No)
-
-        if reply == QtWidgets.QMessageBox.Yes:
-
-            f = open("./setting/pero_setting_data/pero_state.txt", "w")
-            f.write("default")
-            f.close()
-
-            kill_process()
-            # print("why?")
-        else:
-            pass
 
     def closeEvent(self, event):
-        print("end")
         reply = QtWidgets.QMessageBox.question(self, 'Quit', "프로그램을 종료하시겠습니까?",
                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
                                                QtWidgets.QMessageBox.No)
 
         if reply == QtWidgets.QMessageBox.Yes:
 
-            f = open("./setting/pero_setting_data/pero_state.txt", "w")
+            f = open("./setting/pero_setting_data/apply_app.txt", "w")
+            f.write("default")
+            f = open("./setting/pero_setting_data/current_app.txt", "w")
             f.write("default")
             f.close()
 

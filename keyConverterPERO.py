@@ -14,8 +14,8 @@ currentValue = []
 # linear3 = f.read()
 # f = open("./setting/pero_setting_data/gesture4.txt", "r")
 # linear4 = f.read()
-# f = open("./setting/pero_setting_data/pero_state.txt", "r")
-# pero_state = f.read()
+# f = open("./setting/pero_setting_data/current_app.txt", "r")
+# current_app = f.read()
 # f = open("./setting/pero_setting_data/default.txt", "rt", encoding="UTF-8")
 # default_context = f.read()
 # default = default_context.split("\n")
@@ -51,7 +51,7 @@ currentValue = []
 
 # print(setting_db)
 # print(default_db)
-# print(pero_state)
+# print(current_app)
 
 keyAction = keyboard.Controller()
 
@@ -242,8 +242,8 @@ def execute3():
     linear3 = f.read()
     f = open("./setting/pero_setting_data/gesture4.txt", "r")
     linear4 = f.read()
-    f = open("./setting/pero_setting_data/pero_state.txt", "r")
-    pero_state = f.read()
+    f = open("./setting/pero_setting_data/current_app.txt", "r")
+    current_app = f.read()
     f = open("./setting/pero_setting_data/default.txt", "rt", encoding="UTF-8")
     default_context = f.read()
     default = default_context.split("\n")
@@ -276,9 +276,9 @@ def execute3():
         elif default_element[1] == "모든창 최소화(Default)":
             default_db.update({default_element[0]: "windows_minimize"})
 
-    if pero_state == "default":
-        func_mapping[default_db["linear3"]]()
-    elif pero_state == "user":
+    if current_app == "default":
+        func_mapping[setting_db["linear3"]]()
+    elif current_app == "windows":
         func_mapping[setting_db["linear3"]]()
 
 
@@ -291,8 +291,8 @@ def execute4():
     linear3 = f.read()
     f = open("./setting/pero_setting_data/gesture4.txt", "r")
     linear4 = f.read()
-    f = open("./setting/pero_setting_data/pero_state.txt", "r")
-    pero_state = f.read()
+    f = open("./setting/pero_setting_data/current_app.txt", "r")
+    current_app = f.read()
     f = open("./setting/pero_setting_data/default.txt", "rt", encoding="UTF-8")
     default_context = f.read()
     default = default_context.split("\n")
@@ -325,9 +325,9 @@ def execute4():
         elif default_element[1] == "모든창 최소화(Default)":
             default_db.update({default_element[0]: "windows_minimize"})
 
-    if pero_state == "default":
+    if current_app == "default":
         func_mapping[default_db["linear4"]]()
-    elif pero_state == "user":
+    elif current_app == "user":
         func_mapping[setting_db["linear4"]]()
 
 
