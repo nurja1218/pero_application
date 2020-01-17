@@ -1,5 +1,6 @@
 import sys
 import subprocess
+import os
 
 import psutil
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -10,15 +11,16 @@ from PyQt5.QtGui import QPixmap, QIcon, QMovie
 # background process kill(keyConverter and pero_ui)
 def kill_process():
     for proc in psutil.process_iter():
-        if any(procstr in proc.name() for procstr in ['keyConverterPERO.exe', 'keyConverterPERO.exe', 'keyConverterPERO.exe', 'keyConverterPERO.exe']):
+        if any(procstr in proc.name() for procstr in
+               ['keyConverterPERO.exe', 'keyConverterPERO.exe', 'keyConverterPERO.exe', 'keyConverterPERO.exe']):
             print(f'Killing {proc.name()}')
             proc.kill()
 
 
 subprocess_list = []
 
-class Communicate(QObject):
 
+class Communicate(QObject):
     closeApp = pyqtSignal()
 
 
@@ -981,6 +983,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.active_app.setFont(font)
         self.active_app.setObjectName("active_app")
         self.active_app.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
+        self.active_app.setFixedWidth(350)
         self.gridLayout_141.addWidget(self.active_app, 0, 0, 1, 1)
         self.gridLayout_95.addLayout(self.gridLayout_141, 0, 0, 1, 11)
         self.gridLayout_142 = QtWidgets.QGridLayout()
@@ -1484,6 +1487,8 @@ class Ui_Form(QtWidgets.QWidget):
             self.ppt_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_ppt))
 
+            self.touch_des3.setCurrentIndex(0)
+
             f = open("./setting/pero_setting_data/current_app.txt", "w")
             f.write("ppt")
             f.close()
@@ -1522,6 +1527,8 @@ class Ui_Form(QtWidgets.QWidget):
             self.excel_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_excel))
 
+            self.touch_des3.setCurrentIndex(0)
+
             f = open("./setting/pero_setting_data/current_app.txt", "w")
             f.write("excel")
             f.close()
@@ -1559,6 +1566,8 @@ class Ui_Form(QtWidgets.QWidget):
             self.mac_os_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_mac_os))
 
+            self.touch_des3.setCurrentIndex(0)
+
             f = open("./setting/pero_setting_data/current_app.txt", "w")
             f.write("mac_os")
             f.close()
@@ -1595,6 +1604,8 @@ class Ui_Form(QtWidgets.QWidget):
             self.windows.setStyleSheet("background-color: '#fe9801'")
             self.windows_current = "click_yes"
             self.active_app.setPixmap(QPixmap(self.active_windows))
+
+            self.touch_des3.setCurrentIndex(0)
 
             f = open("./setting/pero_setting_data/current_app.txt", "w")
             f.write("windows")
@@ -1690,7 +1701,6 @@ class Ui_Form(QtWidgets.QWidget):
         current_app = f.read()
         f.close()
         option = {}
-        print(current_app)
 
         if current_app == "windows":
             f = open("./setting/pero_setting_data/option_windows.txt", "rt", encoding="UTF-8")
@@ -1762,7 +1772,6 @@ class Ui_Form(QtWidgets.QWidget):
         current_app = f.read()
         f.close()
         option = {}
-        print(current_app)
 
         if current_app == "windows":
             f = open("./setting/pero_setting_data/option_windows.txt", "rt", encoding="UTF-8")
@@ -2163,37 +2172,61 @@ class Ui_Form(QtWidgets.QWidget):
                     ## 처음 application 선택하면 값을 저장
                     ## 다시 application을 선택하는 경우 기존의 모든 제스처 값을 삭제하고 다시 처음부터 누적 저장시켜야한다.
 
+                    ## save버튼(select한 app이 바꼈을때), Reset버튼, 종료이벤트 => 저장되었던 제스처-명령 데이터 삭제
+
+                    # application상에서 선택한 app
                     f = open("./setting/pero_setting_data/current_app.txt", "r")
                     current_app = f.read()
-                    f.close()
 
+                    # save버튼을 눌러서 적용시켰을 때 선택한 app
                     f = open("./setting/pero_setting_data/apply_app.txt", "w")
                     f.write(current_app)
-                    f.close()
 
-                    f = open("./setting/pero_setting_data/apply_gesture.txt", "a")
-                    f.write(gesture_name + "\n")
-                    f.close()
+                    # save버튼을 눌러서 적용시켰을 때 선택한 제스처 db
+                    f = open("./setting/pero_setting_data/apply_gesture.txt", "w")
 
-                    self.current_db.update({"application": current_app})
-                    self.current_db.update({gesture_name: command})
-                    print(self.current_db)
+                    # save버튼을 눌러서 적용시킨 app과 제스처들
+                    # 조건1: current_db가 비었다면 적용시킬 app과 제스처 저장
+                    # 조건2: '적용시킨 app'(current_db)과 '적용시킬 app'이 같다면 제스처만 저장
+                    # 조건3: '적용시킨 app'(current_db)과 '적용시킬 app'이 다르다면
+                    #        기존의 제스처를 txt를 삭제하고 다시 하나씩 누적 저장
+                    if self.current_db.get("application") is None:
+                        self.current_db.update({"application": current_app})
+                        self.current_db.update({gesture_name: command})
+                    elif self.current_db["application"] == current_app:
+                        self.current_db.update({gesture_name: command})
+                    elif self.current_db["application"] != current_app:
+                        f.write("")
+                        for g_key in range(len(list(self.current_db.keys())) - 1):
+                            os.remove("./setting/pero_setting_data/"+ list(self.current_db.keys())[g_key + 1] +".txt")
+                        self.current_db.clear()
+                        self.current_db.update({"application": current_app})
+                        self.current_db.update({gesture_name: command})
 
+                    # current_db에 저장된 제스처들을 string으로 apply_ges에 넣어서 apply_gesture.txt에 저장
+                    apply_ges = ""
+                    for a_key in range(len(list(self.current_db.keys())) - 1):
+                        apply_ges = apply_ges + list(self.current_db.keys())[a_key + 1] + "\n"
+                    f.write(apply_ges)
+
+                    #
                     f = open("./setting/pero_setting_data/" + gesture_name + ".txt", "w")
                     f.write('%s:%s' % (gesture_name, command))
                     f.close()
 
-                    list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
-                    self.gesture_dic[list(self.gesture_dic.items())[i][0]] = "click_no"
-
-                    self.touch_des3.clear()
-                    self.touch_des3.addItem("---명령선택---")
-                    self.touch_des3.model().item(0).setEnabled(False)
+                    ## 제스처 아이콘 선택 없애는 부분
+                    # list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
+                    # self.gesture_dic[list(self.gesture_dic.items())[i][0]] = "click_no"
+                    #
+                    # self.touch_des3.clear()
+                    # self.touch_des3.addItem("---명령선택---")
+                    # self.touch_des3.model().item(0).setEnabled(False)
                     break
 
-            self.touch_des1.setCurrentIndex(0)
-            self.touch_des2.setCurrentIndex(0)
-            self.touch_des3.setCurrentIndex(0)
+            # combobox를 첫 index로 이동시키는 부분
+            # self.touch_des1.setCurrentIndex(0)
+            # self.touch_des2.setCurrentIndex(0)
+            # self.touch_des3.setCurrentIndex(0)
 
             gesture_type = ""
             if gesture_name == "linear3":
@@ -2225,6 +2258,15 @@ class Ui_Form(QtWidgets.QWidget):
         self.touch_des3.addItem("---명령선택---")
         self.touch_des3.model().item(0).setEnabled(False)
 
+        self.ppt_current = "click_no"
+        self.ppt.setStyleSheet("background-color: white")
+        self.excel_current = "click_no"
+        self.excel.setStyleSheet("background-color: white")
+        self.windows_current = "click_no"
+        self.windows.setStyleSheet("background-color: white")
+        self.mac_os_current = "click_no"
+        self.mac_os.setStyleSheet("background-color: white")
+
         for i in range(0, 16):
             list(self.gesture_dic.items())[i][0].setStyleSheet("background-color: white")
             self.gesture_dic[list(self.gesture_dic.items())[i][0]] = "click_no"
@@ -2233,6 +2275,10 @@ class Ui_Form(QtWidgets.QWidget):
         f.write("default")
         f.close()
 
+        for i in range(len(list(self.current_db.keys())) - 1):
+            print(list(self.current_db.keys())[i + 1])
+            os.remove("./setting/pero_setting_data/" + list(self.current_db.keys())[i + 1] + ".txt")
+        self.current_db.clear()
 
     def closeEvent(self, event):
         reply = QtWidgets.QMessageBox.question(self, 'Quit', "프로그램을 종료하시겠습니까?",
@@ -2240,6 +2286,11 @@ class Ui_Form(QtWidgets.QWidget):
                                                QtWidgets.QMessageBox.No)
 
         if reply == QtWidgets.QMessageBox.Yes:
+
+            for i in range(len(list(self.current_db.keys())) - 1):
+                print(list(self.current_db.keys())[i + 1])
+                os.remove("./setting/pero_setting_data/" + list(self.current_db.keys())[i + 1] + ".txt")
+            self.current_db.clear()
 
             f = open("./setting/pero_setting_data/apply_app.txt", "w")
             f.write("default")
