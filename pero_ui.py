@@ -1197,7 +1197,7 @@ class Ui_Form(QtWidgets.QWidget):
 
     def retranslateUi(self, Form):
 
-        # subprocess_list.append(subprocess.Popen('keyConverterPERO.exe', shell=True))
+        subprocess_list.append(subprocess.Popen('keyConverterPERO.exe', shell=True))
 
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("Palmcat", "Palmcat"))
