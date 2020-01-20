@@ -211,16 +211,16 @@ def execute2():
 def execute3():
     ############# linear3에 대한 함수 #############
 
-    f = open("../pero_application/setting/pero_setting_data/apply_app.txt", "r")
+    f = open("./setting/pero_setting_data/apply_app.txt", "r")
     apply_app = f.read()
-    f = open("../pero_application/setting/pero_setting_data/apply_gesture.txt", "r")
+    f = open("./setting/pero_setting_data/apply_gesture.txt", "r")
     apply_ges = f.read()
     apply_ges = apply_ges.split("\n")
     f.close()
 
     if apply_app == "default":
         ## default.txt를 읽어서 명령에 적용
-        f = open("../pero_application/setting/pero_setting_data/default.txt", "rt", encoding="UTF-8")
+        f = open("./setting/pero_setting_data/default.txt", "rt", encoding="UTF-8")
         default_list = f.read()
         default_list = default_list.split("\n")
         default_all = {}
@@ -239,7 +239,7 @@ def execute3():
             for i in range(len(apply_ges) - 1):
                 if apply_ges[i] == "linear3":
                     # 명령값에 대한 함수 실행
-                    f = open("../pero_application/setting/pero_setting_data/linear3.txt", "r")
+                    f = open("./setting/pero_setting_data/linear3.txt", "r")
                     linear3 = f.read()
                     linear3 = linear3.split(":")[1]
                     if linear3 == "다른 이름으로 저장":
@@ -253,7 +253,7 @@ def execute3():
             for i in range(len(apply_ges) - 1):
                 if apply_ges[i] == "linear3":
                     # 명령값에 대한 함수 실행
-                    f = open("../pero_application/setting/pero_setting_data/linear3.txt", "r")
+                    f = open("./setting/pero_setting_data/linear3.txt", "r")
                     linear3 = f.read()
                     linear3 = linear3.split(":")[1]
                     if linear3 == "프레젠테이션 시작":
@@ -266,7 +266,7 @@ def execute3():
         for i in range(len(apply_ges) - 1):
             if apply_ges[i] == "linear3":
                 # 명령값에 대한 함수 실행
-                f = open("../pero_application/setting/pero_setting_data/linear3.txt", "r")
+                f = open("./setting/pero_setting_data/linear3.txt", "r")
                 linear3 = f.read()
                 linear3 = linear3.split(":")[1]
                 if linear3 == "시작화면 열기(Default)":
@@ -278,15 +278,15 @@ def execute3():
 
 
 def execute4():
-    f = open("../pero_application/setting/pero_setting_data/apply_app.txt", "r")
+    f = open("./setting/pero_setting_data/apply_app.txt", "r")
     apply_app = f.read()
-    f = open("../pero_application/setting/pero_setting_data/apply_gesture.txt", "r")
+    f = open("./setting/pero_setting_data/apply_gesture.txt", "r")
     apply_ges = f.read()
     apply_ges = apply_ges.split("\n")
     f.close()
 
     if apply_app == "default":
-        f = open("../pero_application/setting/pero_setting_data/default.txt", "rt", encoding="UTF-8")
+        f = open("./setting/pero_setting_data/default.txt", "rt", encoding="UTF-8")
         default_list = f.read()
         default_list = default_list.split("\n")
         default_all = {}
@@ -300,7 +300,7 @@ def execute4():
         if funWin() == "EXCEL.EXE":
             for i in range(len(apply_ges) - 1):
                 if apply_ges[i] == "linear4":
-                    f = open("../pero_application/setting/pero_setting_data/linear4.txt", "r")
+                    f = open("./setting/pero_setting_data/linear4.txt", "r")
                     linear4 = f.read()
                     linear4 = linear4.split(":")[1]
                     if linear4 == "열길이 0":
@@ -313,7 +313,7 @@ def execute4():
         if funWin() == "POWERPNT.EXE":
             for i in range(len(apply_ges) - 1):
                 if apply_ges[i] == "linear4":
-                    f = open("../pero_application/setting/pero_setting_data/linear4.txt", "r")
+                    f = open("./setting/pero_setting_data/linear4.txt", "r")
                     linear4 = f.read()
                     linear4 = linear4.split(":")[1]
                     if linear4 == "다른 이름으로 저장":
@@ -325,7 +325,7 @@ def execute4():
     elif apply_app == "windows":
         for i in range(len(apply_ges) - 1):
             if apply_ges[i] == "linear4":
-                f = open("../pero_application/setting/pero_setting_data/linear4.txt", "r")
+                f = open("./setting/pero_setting_data/linear4.txt", "r")
                 linear4 = f.read()
                 linear4 = linear4.split(":")[1]
                 if linear4 == "모든창 최소화(Default)":

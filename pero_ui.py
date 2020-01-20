@@ -341,7 +341,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.gridLayout_331.addWidget(self.reset_btn, 1, 1, 1, 1)
         # self.gridLayout_174.addLayout(self.gridLayout_179, 2, 2, 1, 1)
 
-        self.reset_btn.setIcon(QtGui.QIcon("reset_icon.png"))
+        self.reset_btn.setIcon(QtGui.QIcon("./setting/img/reset_icon.png"))
         self.reset_btn.setIconSize(QtCore.QSize(16, 16))
         self.reset_btn.setText(" Reset!")
         self.reset_btn.pressed.connect(self.press_reset_btn)
@@ -1201,7 +1201,7 @@ class Ui_Form(QtWidgets.QWidget):
 
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("Palmcat", "Palmcat"))
-        self.setWindowIcon(QIcon('palmcat_title.png'))
+        self.setWindowIcon(QIcon('./setting/img/palmcat_title.png'))
 
         pixmap_ges_func = QPixmap("./mainFrame/gesture_function.png")
         pixmap_ges_func = pixmap_ges_func.scaled(200, 19)
