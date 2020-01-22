@@ -467,15 +467,15 @@ class Ui_Form(QtWidgets.QWidget):
         self.gridLayout_174.addLayout(self.gridLayout_176, 6, 0, 1, 1)
         self.gridLayout_185 = QtWidgets.QGridLayout()
         self.gridLayout_185.setObjectName("gridLayout_185")
-        self.commends = QtWidgets.QLabel(self.gridGroupBox_78)
+        self.commands = QtWidgets.QLabel(self.gridGroupBox_78)
         font = QtGui.QFont()
         font.setFamily("AppleSDGothicNeoM00")
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
-        self.commends.setFont(font)
-        self.commends.setObjectName("commends")
-        self.gridLayout_185.addWidget(self.commends, 0, 0, 1, 1)
+        self.commands.setFont(font)
+        self.commands.setObjectName("commands")
+        self.gridLayout_185.addWidget(self.commands, 0, 0, 1, 1)
         self.gridLayout_174.addLayout(self.gridLayout_185, 2, 1, 1, 1)
         self.gridLayout_186 = QtWidgets.QGridLayout()
         self.gridLayout_186.setObjectName("gridLayout_186")
@@ -1213,7 +1213,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.applications.setText(_translate("Form", "Applications"))
 
         palm_logo = QPixmap("./mainFrame/palmcat_logo.png")
-        palm_logo = palm_logo.scaled(145, 43)
+        palm_logo = palm_logo.scaled(144, 43)
         self.palmcat_logo.setText(_translate("Form", "팜켓"))
         self.palmcat_logo.setPixmap(QPixmap(palm_logo))
 
@@ -1221,7 +1221,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.touch4.setText(_translate("Form", "터치4개"))
         self.touch4.setPixmap(QPixmap(touch_4))
 
-        self.commends.setText(_translate("Form", "Commends"))
+        self.commands.setText(_translate("Form", "Commands"))
 
         touch_3 = QPixmap("./setting/move_video/touch_3.png")
         self.touch3.setText(_translate("Form", "터치3개"))
