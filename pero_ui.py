@@ -1418,7 +1418,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.mac_os.setPixmap(QPixmap(mac_tag))
         self.mac_os.mousePressEvent = self.select_mac_os
         self.mac_os_current = "click_no"
-        # self.mac_os.setDisabled(True)
+        self.mac_os.setDisabled(True)
 
         excel_img = QPixmap("./mainFrame/excel.png")
         excel_tag = excel_img.scaled(85, 37)
@@ -1435,13 +1435,13 @@ class Ui_Form(QtWidgets.QWidget):
         self.ppt_current = "click_no"
 
         self.active_ppt = QPixmap("./mainFrame/active_ppt.png")
-        self.active_ppt = self.active_ppt.scaled(127, 24)
+        self.active_ppt = self.active_ppt.scaled(141, 23)
         self.active_excel = QPixmap("./mainFrame/active_excel.png")
         self.active_excel = self.active_excel.scaled(75, 23)
         self.active_mac_os = QPixmap("./mainFrame/active_macOS.png")
-        self.active_mac_os = self.active_mac_os.scaled(140, 22)
+        self.active_mac_os = self.active_mac_os.scaled(161, 23)
         self.active_windows = QPixmap("./mainFrame/active_windows.png")
-        self.active_windows = self.active_windows.scaled(174, 26)
+        self.active_windows = self.active_windows.scaled(182, 23)
 
         self.active_app.setText(_translate("Form", "◀◀ Please select Application"))
 
