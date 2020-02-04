@@ -1413,12 +1413,12 @@ class Ui_Form(QtWidgets.QWidget):
         self.windows_current = "click_no"
 
         mac_img = QPixmap("./mainFrame/macOS.png")
-        mac_tag = mac_img.scaled(161, 37)
+        mac_tag = mac_img.scaled(169, 37)
         self.mac_os.setText(_translate("Form", "masOS"))
         self.mac_os.setPixmap(QPixmap(mac_tag))
         self.mac_os.mousePressEvent = self.select_mac_os
         self.mac_os_current = "click_no"
-        self.mac_os.setDisabled(True)
+        # self.mac_os.setDisabled(True)
 
         excel_img = QPixmap("./mainFrame/excel.png")
         excel_tag = excel_img.scaled(85, 37)
